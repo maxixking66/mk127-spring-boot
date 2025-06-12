@@ -1,21 +1,24 @@
 package ir.maktabsharif127.main.controller;
 
 import ir.maktabsharif127.main.dto.UserBriefDTO;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
 
+    //    @GetMapping("/get-all-info")
+//    @GetMapping("/{id}/orders")
+//    @GetMapping("/{id}/orders/{orderId}")
+//    @GetMapping("/{id}/addresses")
+//    @GetMapping("/{id}/wallet")
     @GetMapping
-    @ResponseBody
     public List<UserBriefDTO> getAllUsers() {
         return List.of(
                 new UserBriefDTO(1L, "mohsen", "asgari", null, true, null),
