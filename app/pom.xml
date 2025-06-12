@@ -19,8 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>ir.maktabsharif127</groupId>
+            <artifactId>util</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
