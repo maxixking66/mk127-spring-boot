@@ -1,5 +1,6 @@
 package ir.maktabsharif127.main.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,9 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema
 public class UserSaveUpdateRequest {
 
     @NotNull(groups = ValidationGroup.Update.class)
+
     private Long id;
 
     private String firstName;

@@ -1,5 +1,9 @@
 package ir.maktabsharif127.main.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import ir.maktabsharif127.main.dto.UserBriefDTO;
 import ir.maktabsharif127.main.dto.UserSaveUpdateRequest;
 import ir.maktabsharif127.main.dto.ValidationGroup;
@@ -16,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "User - Controller", description = "description")
 public class UserController {
 
     @GetMapping
@@ -57,6 +62,20 @@ public class UserController {
     }
 
     @PutMapping
+    @Operation(
+            summary = "summary", description = "description",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200", description = "description for 200",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json"
+                                    )
+                            }
+                    )
+            }
+
+    )
 //    TODO add custom annotation for validation
     public ResponseEntity<?> updateUser(
             @RequestBody @Validated(value = ValidationGroup.Update.class) UserSaveUpdateRequest request,
