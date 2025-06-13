@@ -13,13 +13,14 @@ import java.io.IOException;
 public class MyCustomFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().startsWith("/users")) {
-            String header = request.getHeader("auth");
-            if (header == null || header.isEmpty()) {
-                response.sendError(401);
-                return;
-            }
-        }
+//        if (request.getServletPath().startsWith("/users")) {
+//            String header = request.getHeader("auth");
+//            if (header == null || header.isEmpty()) {
+//                response.sendError(401);
+//                return;
+//            }
+//        }
+        System.out.println("in my filter");
         filterChain.doFilter(request, response);
     }
 }
