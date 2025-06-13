@@ -5,12 +5,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import ir.maktabsharif127.main.config.GeneralException;
+import ir.maktabsharif127.main.domain.User;
 import ir.maktabsharif127.main.dto.UserBriefDTO;
 import ir.maktabsharif127.main.dto.UserSaveUpdateRequest;
 import ir.maktabsharif127.main.dto.ValidationGroup;
+import ir.maktabsharif127.main.mapper.UserMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +24,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Tag(name = "User - Controller", description = "description")
+@RequiredArgsConstructor
 public class UserController {
+
+    private final UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<List<UserBriefDTO>> getAllUsers() {
@@ -39,9 +45,18 @@ public class UserController {
     @GetMapping("/by-param")
 //    requestParam, query string, Query Params -> /users?id=5&username=mohsen&
     public ResponseEntity<UserBriefDTO> getUserById(@RequestParam Long id) {
+
+        User user = getUser(id);
+
+        UserBriefDTO userBriefDTO = userMapper.convertToBriefDTO(user);
+
         return ResponseEntity.ok(
                 new UserBriefDTO(id, "mohsen", "asgari", null, true, null)
         );
+    }
+
+    private User getUser(Long id) {
+        return null;
     }
 
     @GetMapping("/by-path-variable/{id}")
