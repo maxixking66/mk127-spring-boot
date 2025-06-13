@@ -4,10 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import ir.maktabsharif127.main.config.GeneralException;
 import ir.maktabsharif127.main.dto.UserBriefDTO;
 import ir.maktabsharif127.main.dto.UserSaveUpdateRequest;
 import ir.maktabsharif127.main.dto.ValidationGroup;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -56,9 +56,10 @@ public class UserController {
     public ResponseEntity<?> createUser(
             @RequestBody @Validated(value = ValidationGroup.Save.class) UserSaveUpdateRequest request,
             HttpSession httpSession) {
-        httpSession.setAttribute("post", "post");
-        System.out.println(request);
-        return ResponseEntity.ok(request);
+        throw new GeneralException("my error message", 403);
+//        httpSession.setAttribute("post", "post");
+//        System.out.println(request);
+//        return ResponseEntity.ok(request);
     }
 
     @PutMapping
@@ -83,14 +84,16 @@ public class UserController {
             HttpSession httpSession,
             HttpServletResponse response) {
 
-        Object attribute = httpSession.getAttribute("post");
-        if (attribute == null) {
-            throw new RuntimeException();
-        }
+        throw new GeneralException("my error message", 400);
 
-        System.out.println(request);
-        response.addCookie(new Cookie("my-cookie", "my-cookie-value"));
-        return ResponseEntity.ok(request);
+//        Object attribute = httpSession.getAttribute("post");
+//        if (attribute == null) {
+//            throw new RuntimeException();
+//        }
+//
+//        System.out.println(request);
+//        response.addCookie(new Cookie("my-cookie", "my-cookie-value"));
+//        return ResponseEntity.ok(request);
     }
 
 }
