@@ -3,6 +3,10 @@ package ir.maktabsharif127.main.controller;
 import ir.maktabsharif127.main.dto.UserBriefDTO;
 import ir.maktabsharif127.main.dto.UserSaveUpdateRequest;
 import ir.maktabsharif127.main.dto.ValidationGroup;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -45,15 +49,28 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> createUser(
-            @RequestBody @Validated(value = ValidationGroup.Save.class) UserSaveUpdateRequest request) {
+            @RequestBody @Validated(value = ValidationGroup.Save.class) UserSaveUpdateRequest request,
+            HttpSession httpSession) {
+        httpSession.setAttribute("post", "post");
         System.out.println(request);
         return ResponseEntity.ok(request);
     }
 
     @PutMapping
+//    TODO add custom annotation for validation
     public ResponseEntity<?> updateUser(
-            @RequestBody @Validated(value = ValidationGroup.Update.class) UserSaveUpdateRequest request) {
+            @RequestBody @Validated(value = ValidationGroup.Update.class) UserSaveUpdateRequest request,
+            HttpServletRequest httpServletRequest,
+            HttpSession httpSession,
+            HttpServletResponse response) {
+
+        Object attribute = httpSession.getAttribute("post");
+        if (attribute == null) {
+            throw new RuntimeException();
+        }
+
         System.out.println(request);
+        response.addCookie(new Cookie("my-cookie", "my-cookie-value"));
         return ResponseEntity.ok(request);
     }
 
