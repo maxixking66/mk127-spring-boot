@@ -1,9 +1,10 @@
 package ir.maktabsharif127.main.controller;
 
 import ir.maktabsharif127.main.dto.UserBriefDTO;
-import ir.maktabsharif127.main.dto.UserInsertRequest;
-import jakarta.validation.Valid;
+import ir.maktabsharif127.main.dto.UserSaveUpdateRequest;
+import ir.maktabsharif127.main.dto.ValidationGroup;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -43,7 +44,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody @Valid UserInsertRequest request) {
+    public ResponseEntity<?> createUser(
+            @RequestBody @Validated(value = ValidationGroup.Save.class) UserSaveUpdateRequest request) {
+        System.out.println(request);
+        return ResponseEntity.ok(request);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateUser(
+            @RequestBody @Validated(value = ValidationGroup.Update.class) UserSaveUpdateRequest request) {
         System.out.println(request);
         return ResponseEntity.ok(request);
     }
