@@ -1,6 +1,8 @@
 package ir.maktabsharif127.main.controller;
 
 import ir.maktabsharif127.main.dto.UserBriefDTO;
+import ir.maktabsharif127.main.dto.UserInsertRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +40,12 @@ public class UserController {
         return ResponseEntity.ok(
                 new UserBriefDTO(id, "mohsen", "asgari", null, true, null)
         );
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody @Valid UserInsertRequest request) {
+        System.out.println(request);
+        return ResponseEntity.ok(request);
     }
 
 }
