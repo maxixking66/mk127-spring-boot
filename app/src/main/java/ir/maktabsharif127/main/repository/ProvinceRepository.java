@@ -14,4 +14,6 @@ public interface ProvinceRepository {
     void save(Province province);
 
     Optional<Province> findByName(String name);
+
+    Province findById(Long id);
 }

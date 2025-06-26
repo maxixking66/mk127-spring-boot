@@ -1,19 +1,20 @@
-package ir.maktabsharif127.main.domain;
+package ir.maktabsharif127.main.dto;
 
-import ir.maktabsharif127.main.domain.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class City extends BaseEntity<Long> {
+public class ProvinceWithoutCityDTO implements Serializable {
+
+    private Long id;
 
     private String name;
 
-    //    @ManyToOne
-    private Province province;
 }

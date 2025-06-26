@@ -17,9 +17,11 @@ public class Province extends BaseEntity<Long> {
 
     private String name;
 
+    //    @OneToMany
     private Set<City> cities = new HashSet<>();
 
-    public Province(String name) {
+    public Province(Long id, String name) {
         this.name = name;
+        setId(id);
     }
 }

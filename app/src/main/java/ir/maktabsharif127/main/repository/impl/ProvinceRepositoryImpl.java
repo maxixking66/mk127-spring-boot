@@ -33,4 +33,12 @@ public class ProvinceRepositoryImpl implements ProvinceRepository {
         return provinces.stream().filter(p -> p.getName().equals(name))
                 .findAny();
     }
+
+    @Override
+    public Province findById(Long id) {
+        return provinces.stream().filter(p -> p.getId().equals(id))
+                .findAny().orElseThrow(
+                        () -> new RuntimeException("not found")
+                );
+    }
 }

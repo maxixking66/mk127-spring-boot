@@ -7,6 +7,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,19 +19,29 @@ public class ProvinceServiceImpl implements ProvinceService {
     @PostConstruct
     public void init() {
         if (provinceRepository.count() == 0) {
-            insert("تهران");
-            insert("اصفهان");
+            insert(1L, "تهران");
+            insert(2L, "اصفهان");
         }
     }
 
-    private void insert(String name) {
+    private void insert(Long id, String name) {
         provinceRepository.save(
-                new Province(name)
+                new Province(id, name)
         );
     }
 
     @Override
     public Optional<Province> findByName(String name) {
         return provinceRepository.findByName(name);
+    }
+
+    @Override
+    public List<Province> findAll() {
+        return provinceRepository.findAll();
+    }
+
+    @Override
+    public Province findById(Long id) {
+        return provinceRepository.findById(id);
     }
 }

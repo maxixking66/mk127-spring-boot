@@ -29,9 +29,11 @@ public class CityServiceImpl implements CityService {
 
     private void insert(String name, Optional<Province> province) {
         province.ifPresent(
-                value -> cityRepository.save(
-                        new City(name, value)
-                )
+                value -> {
+                    City city = new City(name, value);
+                    cityRepository.save(city);
+                    province.get().getCities().add(city);
+                }
         );
     }
 }
