@@ -1,5 +1,6 @@
 package ir.maktabsharif127.main.domain;
 
+import ir.maktabsharif127.main.domain.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,7 @@ import java.time.ZonedDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private Long id;
+public class User extends BaseEntity<Long> {
     private String firstName;
     private String lastName;
     private String username;
