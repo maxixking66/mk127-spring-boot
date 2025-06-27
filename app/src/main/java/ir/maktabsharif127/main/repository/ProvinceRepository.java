@@ -11,9 +11,13 @@ public interface ProvinceRepository {
 
     long count();
 
-    void save(Province province);
+    Province save(Province province);
 
     Optional<Province> findByName(String name);
 
     Province findById(Long id);
+
+    boolean existsByName(String name);
+
+    boolean existsByNameAndIdIsNot(String name, Long id);
 }

@@ -1,16 +1,12 @@
 package ir.maktabsharif127.main.controller;
 
-import ir.maktabsharif127.main.dto.CityDTO;
-import ir.maktabsharif127.main.dto.ProvinceWithCityDTO;
-import ir.maktabsharif127.main.dto.ProvinceWithoutCityDTO;
+import ir.maktabsharif127.main.dto.*;
 import ir.maktabsharif127.main.mapper.ProvinceMapper;
 import ir.maktabsharif127.main.service.ProvinceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,6 +43,34 @@ public class ProvinceController {
                 mapper.convertToCityDTOs(
                         provinceService.findById(provinceId)
                                 .getCities()
+                )
+        );
+    }
+
+    @PostMapping
+    public ResponseEntity<ProvinceWithoutCityDTO> create(
+            @RequestBody @Validated(value = ValidationGroup.Save.class) ProvinceSaveUpdateRequest request) {
+//        Province province = provinceService.save(request);
+//        ProvinceWithoutCityDTO dto = mapper.convertToWithoutCity(province);
+//        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(
+                mapper.convertToWithoutCity(
+                        provinceService.save(request)
+                )
+        );
+    }
+
+    @PostMapping
+    public ResponseEntity<ProvinceWithoutCityDTO> update(
+            @RequestBody @Validated(value = ValidationGroup.Update.class) ProvinceSaveUpdateRequest request) {
+//        Province province = provinceService.save(request);
+//        ProvinceWithoutCityDTO dto = mapper.convertToWithoutCity(province);
+//        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(
+                mapper.convertToWithoutCity(
+                        provinceService.update(
+                                mapper.toProvince(request)
+                        )
                 )
         );
     }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Repository
 public class ProvinceRepositoryImpl implements ProvinceRepository {
@@ -24,8 +25,10 @@ public class ProvinceRepositoryImpl implements ProvinceRepository {
     }
 
     @Override
-    public void save(Province province) {
+    public Province save(Province province) {
+        province.setId(ThreadLocalRandom.current().nextLong(500, 50000));
         provinces.add(province);
+        return province;
     }
 
     @Override
@@ -40,5 +43,15 @@ public class ProvinceRepositoryImpl implements ProvinceRepository {
                 .findAny().orElseThrow(
                         () -> new RuntimeException("not found")
                 );
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return provinces.stream().anyMatch(p -> p.getName().equals(name));
+    }
+
+    @Override
+    public boolean existsByNameAndIdIsNot(String name, Long id) {
+        return provinces.stream().anyMatch(p -> p.getName().equals(name) && !p.getId().equals(id));
     }
 }

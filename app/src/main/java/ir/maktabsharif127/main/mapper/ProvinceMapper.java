@@ -3,6 +3,7 @@ package ir.maktabsharif127.main.mapper;
 import ir.maktabsharif127.main.domain.City;
 import ir.maktabsharif127.main.domain.Province;
 import ir.maktabsharif127.main.dto.CityDTO;
+import ir.maktabsharif127.main.dto.ProvinceSaveUpdateRequest;
 import ir.maktabsharif127.main.dto.ProvinceWithCityDTO;
 import ir.maktabsharif127.main.dto.ProvinceWithoutCityDTO;
 import org.mapstruct.Mapper;
@@ -20,5 +21,9 @@ public interface ProvinceMapper {
 
     List<ProvinceWithoutCityDTO> convertToWithoutCity(List<Province> provinces);
 
+    ProvinceWithoutCityDTO convertToWithoutCity(Province province);
+
     List<CityDTO> convertToCityDTOs(Set<City> cities);
+
+    Province toProvince(ProvinceSaveUpdateRequest request);
 }
