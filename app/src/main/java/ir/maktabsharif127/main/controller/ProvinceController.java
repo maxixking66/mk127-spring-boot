@@ -60,7 +60,7 @@ public class ProvinceController {
         );
     }
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<ProvinceWithoutCityDTO> update(
             @RequestBody @Validated(value = ValidationGroup.Update.class) ProvinceSaveUpdateRequest request) {
 //        Province province = provinceService.save(request);
