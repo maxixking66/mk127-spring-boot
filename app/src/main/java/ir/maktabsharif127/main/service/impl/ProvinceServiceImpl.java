@@ -7,6 +7,10 @@ import ir.maktabsharif127.main.repository.ProvinceRepository;
 import ir.maktabsharif127.main.service.ProvinceService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,9 @@ import java.util.Optional;
 public class ProvinceServiceImpl implements ProvinceService {
 
     private final ProvinceRepository provinceRepository;
+
+    public static final String CACHE_NAME = "province";
+    public static final String COUNT_CACHE_KEY = "'all'";
 
     @PostConstruct
     public void init() {
@@ -40,16 +47,24 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     @Override
+    @Cacheable(value = CACHE_NAME, key = COUNT_CACHE_KEY)
     public List<Province> findAll() {
         return provinceRepository.findAll();
     }
 
     @Override
+    @Cacheable(value = "province", key = "#id")
     public Province findById(Long id) {
         return provinceRepository.findById(id);
     }
 
     @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "province", key = "'all'"),
+                    @CacheEvict(value = "province", key = "#request.id")
+            }
+    )
     public Province save(ProvinceSaveUpdateRequest request) {
 //        if (request.getId() == null)
         if (Objects.isNull(request.getId())) {
@@ -61,6 +76,7 @@ public class ProvinceServiceImpl implements ProvinceService {
 
 
     @Override
+    @CachePut(value = "province", key = "#result.id")
     public Province update(Province province) {
         if (provinceRepository.existsByNameAndIdIsNot(province.getName(), province.getId())) {
             throw new GeneralException("duplicate name", HttpStatus.CONFLICT);
