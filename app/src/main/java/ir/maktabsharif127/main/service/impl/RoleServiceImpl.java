@@ -5,7 +5,10 @@ import ir.maktabsharif127.main.repository.RoleRepository;
 import ir.maktabsharif127.main.service.RoleService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,11 +16,17 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository repository;
 
+    @Value("${default.roles}")
+    private List<String> roles;
+
     @PostConstruct
     public void initDefaultData() {
-        if (repository.count() == 0) {
-            insertRole("ADMIN");
-            insertRole("CUSTOMER");
+        if (roles != null && !roles.isEmpty()) {
+            roles.forEach(name -> {
+                if (!repository.existsByName(name)) {
+                    insertRole(name);
+                }
+            });
         }
     }
 
