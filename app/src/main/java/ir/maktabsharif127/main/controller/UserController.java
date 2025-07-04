@@ -10,10 +10,13 @@ import ir.maktabsharif127.main.dto.UserBriefDTO;
 import ir.maktabsharif127.main.dto.UserSaveUpdateRequest;
 import ir.maktabsharif127.main.dto.ValidationGroup;
 import ir.maktabsharif127.main.mapper.UserMapper;
+import ir.maktabsharif127.main.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,9 @@ import java.util.List;
 public class UserController {
 
     private final UserMapper userMapper;
+
+    //    This is wrong
+    private final UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<List<UserBriefDTO>> getAllUsers() {
@@ -109,6 +115,13 @@ public class UserController {
 //        System.out.println(request);
 //        response.addCookie(new Cookie("my-cookie", "my-cookie-value"));
 //        return ResponseEntity.ok(request);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<User>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(
+                userRepository.findAll(pageable)
+        );
     }
 
 }

@@ -2,6 +2,7 @@ package ir.maktabsharif127.main.domain;
 
 import ir.maktabsharif127.main.domain.base.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,9 +17,13 @@ import java.time.ZonedDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedEntityGraph(name = User.FULL_GRAPH, attributeNodes = {
+
+})
 public class User extends BaseEntity<Long> {
 
     public static final String TABLE_NAME = "tbl_users";
+    public static final String FULL_GRAPH = "user_full_graph";
 
     private String firstName;
     private String lastName;

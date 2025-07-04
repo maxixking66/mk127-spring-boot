@@ -3,6 +3,7 @@ package ir.maktabsharif127.main.repository;
 import ir.maktabsharif127.main.domain.User;
 import ir.maktabsharif127.main.dto.projection.NamesOnly;
 import ir.maktabsharif127.main.dto.projection.NamesOnlyDTO;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,11 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 //    List<CredentialOnly> findAllByIdIsNotNull();
 
     <P> List<P> findAllByIdIsNotNull(Class<P> pClass);
+
+    @Override
+//    @EntityGraph(attributePaths = "roles")
+    @EntityGraph(value = User.FULL_GRAPH)
+    List<User> findAll();
 
     @Query(value = "select u.firstName, u.lastName from User u")
     List<NamesOnlyDTO> findAllCustom();
