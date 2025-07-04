@@ -26,6 +26,5 @@ public class User extends BaseEntity<Long> {
     private String password;
     private String mobileNumber;
     private ZonedDateTime birthdate;
-    private ZonedDateTime createDate;
     private Boolean isActive;
 }
