@@ -8,7 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Setter
 @Getter
@@ -27,11 +27,16 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
 
     @Column(name = CREATE_DATE)
     @CreatedDate
-    private LocalDateTime createDate;
+    private ZonedDateTime createDate;
 
     @Column(name = LAST_UPDATE_DATE)
     @LastModifiedDate
-    private LocalDateTime lastUpdateDate;
+    private ZonedDateTime lastUpdateDate;
+
+//    @ManyToOne
+//    @CreatedBy
+//    @LastModifiedBy
+//    private User creator;
 
 //    public BaseEntity() {
 //        this.createDate = ZonedDateTime.now();
