@@ -37,6 +37,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+//    @Transactional
     public Role save(Role role) {
         return repository.save(role);
     }
