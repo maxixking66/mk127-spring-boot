@@ -1,6 +1,7 @@
 package ir.maktabsharif127.main.domain;
 
 import ir.maktabsharif127.main.domain.base.BaseEntity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ public class City extends BaseEntity<Long> {
 
     private String name;
 
-    //    @ManyToOne
+    @ManyToOne
     private Province province;
 }
