@@ -25,7 +25,7 @@ public class MyUserDetails implements UserDetails {
         if (user.getRoles() != null && !user.getRoles().isEmpty()) {
             user.getRoles().forEach(role -> {
                 authorities.add(
-                        new SimpleGrantedAuthority(role.getName())
+                        new SimpleGrantedAuthority("ROLE_".concat(role.getName()))
                 );
                 if (role.getAuthorities() != null && !role.getAuthorities().isEmpty()) {
                     role.getAuthorities().forEach(

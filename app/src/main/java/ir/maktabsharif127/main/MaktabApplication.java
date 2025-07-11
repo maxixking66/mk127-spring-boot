@@ -1,5 +1,6 @@
 package ir.maktabsharif127.main;
 
+import ir.maktabsharif127.main.config.HttpRequestsCustomizer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -22,11 +23,20 @@ public class MaktabApplication {
         ConfigurableApplicationContext run = SpringApplication.run(MaktabApplication.class, args);
 
 
-
     }
 
     @Bean
     public DateTimeProvider dateTimeProvider() {
         return () -> Optional.of(ZonedDateTime.now());
+    }
+
+    @Bean
+    public HttpRequestsCustomizer customizer() {
+        return new HttpRequestsCustomizer() {
+            @Override
+            public String[] permitAll() {
+                return new String[]{"/api/free"};
+            }
+        };
     }
 }
