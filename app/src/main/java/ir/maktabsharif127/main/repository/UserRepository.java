@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
@@ -33,4 +34,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query(value = "select new ir.maktabsharif127.main.dto.projection.NamesOnlyDTO(u.firstName, u.lastName) from User u")
     List<NamesOnlyDTO> findAllCustomV2();
 
+    @EntityGraph(attributePaths = {"roles", "roles.authorities"})
+    Optional<User> findByUsername(String username);
 }
