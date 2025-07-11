@@ -1,7 +1,6 @@
 package ir.maktabsharif127.main.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -22,7 +21,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    @PreAuthorize("hasRole")
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         String username = (String) authentication.getPrincipal();

@@ -35,7 +35,8 @@ public class MaktabApplication {
         return new HttpRequestsCustomizer() {
             @Override
             public String[] permitAll() {
-                return new String[]{"/api/free"};
+//                return new String[]{"/api/free/now", "/api/free/other"};
+                return new String[]{"/api/free/**"};
             }
         };
     }

@@ -11,8 +11,15 @@ import java.time.ZonedDateTime;
 @RequestMapping("/api/free")
 public class FreeController {
 
-    @GetMapping
+    @GetMapping("/now")
     public ResponseEntity<ZonedDateTime> now() {
+        return ResponseEntity.ok(
+                ZonedDateTime.now()
+        );
+    }
+
+    @GetMapping("/other")
+    public ResponseEntity<ZonedDateTime> other() {
         return ResponseEntity.ok(
                 ZonedDateTime.now()
         );

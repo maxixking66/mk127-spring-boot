@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,10 +119,15 @@ public class UserController {
     }
 
     @GetMapping("/page")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER')")
+//    @PreAuthorize("hasAnyAuthority('ADMINS', 'ADMIN') || hasAnyRole('ADMINS', 'ADMIN')")
+    @PreAuthorize("hasAuthority(T(ir.maktabsharif127.main.controller.UserController).ADMIN)")
     public ResponseEntity<Page<User>> findAll(Pageable pageable) {
         return ResponseEntity.ok(
                 userRepository.findAll(pageable)
         );
     }
+
+    public static final String ADMIN = "ADMIN";
 
 }
