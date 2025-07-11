@@ -22,12 +22,10 @@
         <dependency>
             <groupId>ir.maktabsharif127</groupId>
             <artifactId>util</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ir.maktabsharif127</groupId>
             <artifactId>external</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
